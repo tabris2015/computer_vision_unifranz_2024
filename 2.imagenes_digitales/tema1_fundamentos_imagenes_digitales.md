@@ -12,7 +12,7 @@ Jose Laruta
 
 ![bg right 130%](img/unifranz_logo.png)
 
-Diplomado en Inteligencia Artificial - Unifranz - Mayo 2023
+Diplomado en Inteligencia Artificial - Unifranz - Mayo 2024
 
 ---
 # Agenda
