@@ -92,7 +92,7 @@ def plot_face_blendshapes_bar_graph(face_blendshapes):
 cap = cv2.VideoCapture(0)
 
 # crear detector
-BUNDLE_PATH = "mediapipe/models/face_landmarker.task"
+BUNDLE_PATH = "6.mediapipe/models/face_landmarker.task"
 base_options = python.BaseOptions(model_asset_path=BUNDLE_PATH)
 options = vision.FaceLandmarkerOptions(
     base_options=base_options,

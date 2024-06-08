@@ -19,6 +19,8 @@ FONT_SIZE = 1
 FONT_THICKNESS = 1
 HANDEDNESS_TEXT_COLOR = (88, 205, 54) # vibrant green
 
+draw_points = []
+
 def draw_landmarks_on_image(rgb_image, detection_result, evento):
     hand_landmarks_list = detection_result.hand_landmarks
     handedness_list = detection_result.handedness
@@ -51,6 +53,7 @@ def draw_landmarks_on_image(rgb_image, detection_result, evento):
             center = (int(hand_landmarks[INDEX_LANDMARK].x * width), int(hand_landmarks[INDEX_LANDMARK].y * height))
             # dibujamos un circulo en el pulgar
             cv2.circle(annotated_image, center, 40, (255, 0, 0), 10)
+            draw_points.append(center)
 
         # Draw handedness (left or right hand) on the image.
         cv2.putText(annotated_image, f"{handedness[0].category_name}",
@@ -83,7 +86,7 @@ def process_detections(detections):
 cap = cv2.VideoCapture(0)
 
 # crear detector
-MODEL_PATH = "mediapipe/models/hand_landmarker.task"
+MODEL_PATH = "6.mediapipe/models/hand_landmarker.task"
 base_options = python.BaseOptions(model_asset_path=MODEL_PATH)
 options = vision.HandLandmarkerOptions(base_options=base_options,
                                        num_hands=2)
@@ -113,6 +116,9 @@ with vision.HandLandmarker.create_from_options(options) as detector:
         out = frame.copy()
         # dibujar landmarks en la imagen
         out = draw_landmarks_on_image(out, detections, evento)
+
+        for idx in range(len(draw_points) - 1):
+            cv2.line(out, draw_points[idx], draw_points[idx + 1], (255, 255, 0), 2)
         cv2.imshow("out", out)
 
         # detectar una tecla
